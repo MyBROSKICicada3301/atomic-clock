@@ -2,7 +2,6 @@
 
 A modern, real-time world clock application with Google Maps integration and AI-powered location facts. View local times across different timezones with millisecond precision.
 
-
 ## Features
 
 - **Real-Time Clock**: High-precision atomic clock with millisecond accuracy
@@ -61,8 +60,8 @@ You'll need the following API keys:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/atomic-world-clock.git
-   cd atomic-world-clock/atomic-clock
+   https://github.com/MyBROSKICicada3301/atomic-clock
+   cd atomic-clock
    ```
 2. **Install dependencies**
 
@@ -89,7 +88,15 @@ You'll need the following API keys:
 
    The `index.html` file needs to reference your API key. Vite doesn't process HTML files for env variables, so update it manually or use the build process.
 
-## 🚀 Development
+## Build for Production
+
+Build the production-ready app:
+
+```bash
+npm run build
+```
+
+## Development
 
 Start the development server:
 
@@ -99,23 +106,13 @@ npm run dev
 
 The app will be available at `http://localhost:5173/`
 
-## 🏗️ Build for Production
-
-Build the production-ready app:
-
-```bash
-npm run build
-```
-
-The optimized files will be in the `dist/` folder.
-
 Preview the production build locally:
 
 ```bash
 npm run preview
 ```
 
-## 🔥 Firebase Deployment
+## Firebase Deployment
 
 1. **Login to Firebase**
 
@@ -125,23 +122,25 @@ npm run preview
 2. **Initialize Firebase (if not already done)**
 
    ```bash
-   firebase init hosting
+   firebase init
    ```
 
-   - Select your Firebase project
+   Select:
+
+   - Hosting
+   - Use existing project or create new one
    - Set public directory to: `atomic-clock/dist`
    - Configure as single-page app: Yes
 3. **Build and Deploy**
 
    ```bash
    npm run build
-   cd ..
    firebase deploy
    ```
 
-Your app will be live at your Firebase Hosting URL!
+   Your app will be live at: `https://your-project-id.web.app`
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 atomic-clock/
@@ -156,13 +155,17 @@ atomic-clock/
 │   └── style.css       # Global styles
 ├── index.html          # HTML entry point
 ├── vite.config.js      # Vite configuration
+├── firebase.json       # Firebase hosting config
 ├── package.json        # Dependencies
-├── .env               # Environment variables (not in git)
+├── .env               # Environment variables (git-ignored)
 ├── .env.example       # Example env file
+├── .gitignore         # Git ignore rules
+├── .firebase/         # Firebase cache (git-ignored)
+├── .firebaserc        # Firebase project config (git-ignored)
 └── README.md          # This file
 ```
 
-## 🎨 Features Details
+## Features Details
 
 ### Atomic Clock Display
 
@@ -185,14 +188,14 @@ atomic-clock/
 - Info windows with location details
 - Smooth zoom and pan animations
 
-### AI Fun Facts
+### LLM based fun facts
 
 - Automatically generates interesting facts about searched locations
 - Uses Google Gemini Flash model for fast responses
 - 2-3 sentence engaging facts
 - Beautiful gradient card design with loading animation
 
-## ⚙️ Configuration
+## Configuration
 
 ### Vite Config (`vite.config.js`)
 
@@ -215,32 +218,18 @@ export default defineConfig({
 
 This configuration tells Vue to treat Google Maps custom elements as native elements.
 
-### Firebase Config (`firebase.json`)
+## Version Control
 
-```json
-{
-  "hosting": {
-    "public": "atomic-clock/dist",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
-}
-```
+The following files and directories are excluded from git:
 
-## 🔒 Security Notes
+- `.env` - Contains sensitive API keys
+- `.firebase/` - Firebase deployment cache
+- `.firebaserc` - Firebase project configuration
+- `firebase-debug.log` - Firebase debug logs
+- `node_modules/` - Dependencies
+- `dist/` - Build output
 
-- Never commit your `.env` file to version control
-- Keep your API keys secure and regenerate if exposed
-- Use environment variables for all sensitive data
-- Consider adding API key restrictions in Google Cloud Console
-- Enable rate limiting on your Firebase project
-
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Google Maps not loading
 
@@ -257,42 +246,12 @@ This configuration tells Vue to treat Google Maps custom elements as native elem
 ### Build errors
 
 - Clear node_modules and reinstall: `rm -rf node_modules && npm install`
-- Check Node.js version: `node --version` (should be v16+)
+- Check Node.js version: `node --version` (should be version 16+)
 - Verify all env variables are set correctly
 
-## 📝 License
+### Firebase deployment issues
 
-This project is open source and available under the [MIT License](LICENSE).
-
-## 👨‍💻 Author
-
-**Your Name**
-
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Website: [yourwebsite.com](https://yourwebsite.com)
-
-## 🙏 Acknowledgments
-
-- Google Maps Platform for mapping services
-- Google Gemini AI for fun facts
-- Vue.js team for the amazing framework
-- Firebase for hosting infrastructure
-- Share Tech Mono font for the retro look
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📧 Contact
-
-For questions or support, please open an issue on GitHub.
-
----
-
-Made with ❤️ using Vue.js and Google APIs
+- Ensure firebase.json points to the correct build directory
+- Run `npm run build` before deploying
+- Check Firebase project configuration: `firebase projects:list`
+- Verify you're deploying to the correct project: `firebase use --add`
